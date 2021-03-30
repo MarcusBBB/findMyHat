@@ -18,7 +18,7 @@ class Movers {
 					searchingPuppies.length === 1
 						? 'is one puppy'
 						: 'are ' + searchingPuppies.length + ' puppies'
-				} searching for your hat, let's  see how they do!`
+				} searching for your hat, let's see how they do!`
 			);
 			return searchingPuppies;
 		} else {
@@ -84,7 +84,7 @@ class Player extends Mover {
 	}
 	decideOnMove() {
 		console.log(
-			'which way to go?\na for left\nd for right\nw for up\ns for down:'
+			'which way to go?\na for left\nd for right\nw for up\ns for down'
 		);
 		let choice = prompt('');
 
@@ -148,6 +148,7 @@ class Puppy extends Mover {
 		} else {
 			this.y -= choice[0];
 			this.x -= choice[1];
+			this.movePerson();
 		}
 	}
 	startOver() {

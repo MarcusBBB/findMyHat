@@ -1,5 +1,4 @@
 var term = require('terminal-kit').terminal;
-const prompt = require('prompt-sync')({ sigint: true });
 
 class Field {
 	constructor() {
@@ -35,7 +34,6 @@ class Field {
 			hatX = Math.floor(Math.random() * this.fieldWidth);
 			hatY = Math.floor(Math.random() * this.fieldHeight);
 		}
-		console.log(hatY, hatX);
 		newField[hatY][hatX] = this.image.hat;
 		if (this.solvableField(newField)) {
 			this.field = newField;
@@ -99,24 +97,13 @@ class Field {
 		return this.field[person.y][person.x] === this.image.hat;
 	}
 	checkPosition(person) {
-		console.log('checking position of ', person.y, person.x);
 		if (this.personOutsideField(person)) {
 			person.outsideField();
 		} else if (this.personInHole(person)) {
 			person.inHole();
 		} else if (this.foundTheHat(person)) {
-			console.log(
-				`you found your hat! And under it ${
-					this.level === 0
-						? 'is a sweet puppy'
-						: 'are ' + (this.level + 1) + ' sweet puppies'
-				} that will try to catch your hat for you next time :)`
-			);
 			this.hatFound = true;
 			this.level += 1;
-			prompt(
-				`press enter to continue, your puppies will first look for your hat and if they don't succeed, you can.`
-			);
 		}
 	}
 	print(player, puppies) {
@@ -124,11 +111,10 @@ class Field {
 			this.field[puppy.y][puppy.x] = term.red.str('P');
 		}
 		this.field[player.y][player.x] = term.red.str(this.image.pathCharacter);
-		console.log('\n');
 		for (let line of this.field) {
 			console.log(line.join(''));
 		}
-		console.log('\n');
+		console.log('');
 		for (let puppy of puppies) {
 			this.field[puppy.y][puppy.x] = term.white.str(this.image.fieldCharacter);
 		}
